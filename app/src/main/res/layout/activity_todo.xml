@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TodoActivity">
+    tools:context=".ui.TodoActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTodoItems"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnDelete"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:hint="Enter Todo"
         android:textSize="20sp"
+        android:inputType="textImeMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAdd"
         app:layout_constraintHorizontal_bias="0.5"
@@ -33,32 +34,15 @@
         android:fontFamily="sans-serif-light"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="ADD+"
-        android:textColor="@color/black"
+        android:text="ADD TODO"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:backgroundTint="@color/teal_700"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/etTodoTitle" />
 
-
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="DELETE"
-        android:textColor="@color/black"
-        android:textFontWeight="400"
-        android:textSize="20sp"
-        app:backgroundTint="@color/light_grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnAdd" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

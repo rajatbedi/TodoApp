@@ -1,13 +1,16 @@
-package com.example.todoapp
+package com.example.todoapp.others
 
+import android.content.Context
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.constants.ColorsList
+import com.example.todoapp.ui.TodoViewModel
+import com.example.todoapp.data.db.entities.Todo
 import com.example.todoapp.databinding.ItemTodoBinding
-import kotlin.math.log
 
 class TodoAdapter(var todoItems: MutableList<Todo>, var viewModel: TodoViewModel): RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -26,21 +29,38 @@ class TodoAdapter(var todoItems: MutableList<Todo>, var viewModel: TodoViewModel
         }
     }
 
+    fun addTodo(title: String, context: Context,){
+        if (title.isNullOrEmpty()) {
+            Toast.makeText(
+                context,
+                "Please Enter Todo Title", Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        val todoItem = Todo(title = title, false, ColorsList.COLORS.random())
+        viewModel.upsert(todoItem)
+    }
+
+
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         var curItem = todoItems[position]
         holder.binding.apply {
             tvTodoTitle.text = curItem.title
             cbTodo.isChecked = curItem.isChecked
             toggleStrikeThru(tvTodoTitle, curItem.isChecked)
+            todoItemLayout.setBackgroundResource(curItem.color)
+
+
             cbTodo.setOnCheckedChangeListener { _, isChecked ->
                 toggleStrikeThru(tvTodoTitle, isChecked)
                 curItem.isChecked = !curItem.isChecked
-                Log.v("Rajat", "running update")
                 viewModel.upsert(curItem)
-                Log.v("Rajat", "cur item ${curItem}")
-                Log.v("Rajat", "${todoItems}")
-                Log.v("Rajat", "end update")
             }
+
+            ivDelete.setOnClickListener {
+                viewModel.delete(curItem)
+            }
+
         }
     }
 
